@@ -2,7 +2,7 @@ $mainFont: Verdana, Geneva, Tahoma, sans-serif;
 
 form {
   display: inline-block;
-  margin: auto;
+  margin: 20px auto;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 5px 5px 10px #fc8804;
@@ -39,6 +39,7 @@ form {
         border-radius: 7px;
         border: none;
         color: white;
+        cursor: pointer;
       }
     }
 

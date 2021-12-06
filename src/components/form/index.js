@@ -1,29 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./form.scss";
 
 export default function Form(props) {
-  const handleSubmit = (e) => {
+  const [method, setMethod] = useState("GET");
+  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon");
+
+  const methodHandle = (e) => {
+    console.log(e.target.id);
+    setMethod(e.target.id.toUpperCase());
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setUrl(e.target.url.value);
     const formData = {
-      method: "GET",
-      url: "https://pokeapi.co/api/v2/pokemon",
+      method: method,
+      // url: "https://pokeapi.co/api/v2/pokemon",
+      url: url,
     };
     props.handleApiCall(formData);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <label className="url-label">
-          <input name="url" type="text" placeholder="ENTER URL" />
-          <button type="submit">GO!</button>
+          <input
+            name="url"
+            type="text"
+            placeholder="ENTER URL"
+            data-testid="url"
+            defaultValue="https://pokeapi.co/api/v2/pokemon"
+          />
+          <button type="submit" data-testid="submit">
+            GO!
+          </button>
         </label>
         <label className="methods">
-          <span id="get">GET</span>
-          <span id="post">POST</span>
-          <span id="put">PUT</span>
-          <span id="delete">DELETE</span>
+          <span id="get" onClick={methodHandle}>
+            GET
+          </span>
+          <span id="post" onClick={methodHandle}>
+            POST
+          </span>
+          <span id="put" onClick={methodHandle}>
+            PUT
+          </span>
+          <span id="delete" onClick={methodHandle}>
+            DELETE
+          </span>
         </label>
       </form>
     </>
