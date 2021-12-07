@@ -8,5 +8,5 @@ test("If it takes the request url", async () => {
 
   const url = screen.getByTestId("url");
 
-  expect(url).toHaveValue("https://pokeapi.co/api/v2/pokemon");
+  expect(url).toHaveValue("");
 });

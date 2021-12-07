@@ -14,22 +14,27 @@ export default function App() {
   const [requestParams, setRequestParams] = useState({});
 
   const callApi = async (requestParams) => {
-    // mock output
-    // const data = {
-    //   count: 2,
-    //   results: [
-    //     { name: "fake thing 1", url: "http://fakethings.com/1" },
-    //     { name: "fake thing 2", url: "http://fakethings.com/2" },
-    //   ],
-    // };
     await fetch(requestParams.url, {
       method: requestParams.method,
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: requestParams.data ? JSON.stringify(requestParams.data) : null,
     })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         setData(data);
+      })
+      .catch((e) => {
+        console.log(e);
       });
 
     setRequestParams(requestParams);

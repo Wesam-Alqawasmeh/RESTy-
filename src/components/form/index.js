@@ -4,21 +4,22 @@ import "./form.scss";
 
 export default function Form(props) {
   const [method, setMethod] = useState("GET");
-  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon");
+  const [url, setUrl] = useState("");
+  const [body, setBody] = useState(null);
 
   const methodHandle = (e) => {
-    console.log(e.target.id);
     setMethod(e.target.id.toUpperCase());
+    console.log("in methodHAndle function");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setUrl(e.target.url.value);
+    console.log(method);
+    console.log("in handle submit function");
     const formData = {
       method: method,
-      // url: "https://pokeapi.co/api/v2/pokemon",
       url: url,
+      data: body ? body : null,
     };
     props.handleApiCall(formData);
   };
@@ -32,13 +33,15 @@ export default function Form(props) {
             type="text"
             placeholder="ENTER URL"
             data-testid="url"
-            defaultValue="https://pokeapi.co/api/v2/pokemon"
+            // defaultValue="https://pokeapi.co/api/v2/pokemon"
+            onChange={(e) => setUrl(e.target.value)}
           />
-          <button type="submit" data-testid="submit">
-            GO!
-          </button>
         </label>
-        <label className="methods">
+        <textarea
+          placeholder="Enter The Body Here"
+          onChange={(e) => setBody(e.target.value)}
+        ></textarea>
+        <div className="methods">
           <span id="get" onClick={methodHandle}>
             GET
           </span>
@@ -51,7 +54,10 @@ export default function Form(props) {
           <span id="delete" onClick={methodHandle}>
             DELETE
           </span>
-        </label>
+          <button type="submit" data-testid="submit">
+            GO!
+          </button>
+        </div>
       </form>
     </>
   );
