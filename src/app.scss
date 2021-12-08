@@ -8,6 +8,15 @@ body {
   padding: 0;
 }
 
+.loading {
+  font-size: 30px;
+  background: chocolate;
+  font-weight: 700;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 5px;
+}
+
 body {
   background: $backgroundColor;
   height: 100%;
@@ -43,7 +52,15 @@ body {
   color: white;
   font-family: $mainFont;
   width: fit-content;
+  height: fit-content;
   border-radius: 8px;
-  margin: 10px auto;
+  margin: 0 auto;
   padding: 10px;
+  display: inline;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 50px;
 }

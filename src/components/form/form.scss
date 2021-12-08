@@ -1,20 +1,24 @@
 $mainFont: Verdana, Geneva, Tahoma, sans-serif;
 
 form {
-  display: inline-block;
-  margin: 20px auto;
+  display: inline;
+  width: fit-content;
+  // margin: 50px 0 0 50px;
+  height: fit-content;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 5px 5px 10px #fc8804;
-  background-color: rgb(255, 165, 81);
-  font-family: $mainFont;
+  background-color: #ffa551;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* float: left; */
+  // position: relative;
+  /* left: -306px;*/
 
   .methods {
     margin: 20px 0px;
     span {
       cursor: pointer;
       padding: 0.75rem 0.75rem;
-      background: black;
       border-radius: 10px;
       margin: 0px 5px;
       color: white;
@@ -36,21 +40,27 @@ form {
       background-color: red;
     }
 
+    #clicked-button {
+      background-color: white;
+      border: 3px solid black;
+      color: black;
+    }
+
     button {
       background-color: #000;
       padding: 0.75rem 0.75rem;
-      width: 50px;
+      width: 100px;
       border-radius: 7px;
       border: none;
       color: white;
       cursor: pointer;
-      margin-left: 150px;
+      margin-left: 200px;
     }
   }
 
   textarea {
-    width: 500px;
-    height: 400px;
+    width: 700px;
+    height: 200px;
     background-color: rgba(0, 0, 0, 0.493);
     color: white;
     border-radius: 7px;
@@ -73,7 +83,7 @@ form {
       align-items: center;
 
       input {
-        width: 500px;
+        width: 700px;
         height: 2.5rem;
         background-color: rgba(0, 0, 0, 0.493);
         color: white;
