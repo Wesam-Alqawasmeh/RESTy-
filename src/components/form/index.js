@@ -1,25 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 
 import "./form.scss";
 
-export default function Form(props) {
-  const [method, setMethod] = useState("GET");
-  const [url, setUrl] = useState("");
-  const [body, setBody] = useState(null);
+// **************************************************
 
-  const methodHandle = (e) => {
-    setMethod(e.target.id.toUpperCase());
-    console.log("in methodHAndle function");
+const initialState = {
+  method: "",
+  url: "",
+  body: null,
+};
+
+function stateReducer(state = initialState, action) {
+  switch (action.type) {
+    case "method":
+      return methodHandle(state, action.payload);
+
+    case "url":
+      return { ...state, url: action.payload };
+
+    case "body":
+      return { ...state, body: action.payload };
+
+    default:
+      return state;
+  }
+}
+
+const methodHandle = (state, payload) => {
+  // console.log("in methodHAndle function");
+  return {
+    ...state,
+    method: payload,
   };
+};
+
+// **************************************************
+
+export default function Form(props) {
+  const [requestState, dispatch] = useReducer(stateReducer, initialState);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(method);
-    console.log("in handle submit function");
+    // console.log(requestState);
+    // console.log("in handle submit function");
     const formData = {
-      method: method,
-      url: url,
-      data: body ? body : null,
+      method: requestState.method,
+      url: requestState.url,
+      data: requestState.body ? JSON.parse(requestState.body) : null,
     };
     props.handleApiCall(formData);
   };
@@ -34,24 +61,66 @@ export default function Form(props) {
             placeholder="ENTER URL"
             data-testid="url"
             // defaultValue="https://pokeapi.co/api/v2/pokemon"
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={(e) =>
+              dispatch({
+                type: "url",
+                payload: e.target.value,
+              })
+            }
           />
         </label>
         <textarea
           placeholder="Enter The Body Here"
-          onChange={(e) => setBody(e.target.value)}
+          onChange={(e) =>
+            dispatch({
+              type: "body",
+              payload: e.target.value,
+            })
+          }
         ></textarea>
         <div className="methods">
-          <span id="get" onClick={methodHandle}>
+          <span
+            id={requestState.method === "GET" ? "clicked-button" : "get"}
+            onClick={() => {
+              dispatch({
+                type: "method",
+                payload: "GET",
+              });
+            }}
+          >
             GET
           </span>
-          <span id="post" onClick={methodHandle}>
+          <span
+            id={requestState.method === "POST" ? "clicked-button" : "post"}
+            onClick={() => {
+              dispatch({
+                type: "method",
+                payload: "POST",
+              });
+            }}
+          >
             POST
           </span>
-          <span id="put" onClick={methodHandle}>
+          <span
+            id={requestState.method === "PUT" ? "clicked-button" : "put"}
+            onClick={() => {
+              dispatch({
+                type: "method",
+                payload: "PUT",
+              });
+            }}
+          >
             PUT
           </span>
-          <span id="delete" onClick={methodHandle}>
+          <span
+            id={requestState.method === "DELETE" ? "clicked-button" : "delete"}
+            onClick={() => {
+              dispatch({
+                type: "method",
+                payload: "DELETE",
+              });
+            }}
+          >
             DELETE
           </span>
           <button type="submit" data-testid="submit">
